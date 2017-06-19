@@ -27,32 +27,74 @@ public class NetworkRequest {
     private JSONObject bodyJsonObject;
     private OnNetworkRequestResponseListener onNetworkRequestResponseListener;
     private final ResponseMemoryCache responseMemoryCache;
+    private NetworkRequestAsyncTask networkRequestAsyncTask;
 
-    public static NetworkRequest getInstance(NetworkRequestBuilder networkRequestBuilder) {
-        if (networkRequest == null)
-            networkRequest = new NetworkRequest(networkRequestBuilder);
-        return networkRequest;
-    }
-
-    private NetworkRequest(NetworkRequestBuilder networkRequestBuilder) {
-        this.context = networkRequestBuilder.context;
-        this.baseUrl = networkRequestBuilder.baseUrl;
-        this.endpoint = networkRequestBuilder.endpoint;
-        this.isDecodedUrl = networkRequestBuilder.isDecodedUrl;
-        this.requestType = networkRequestBuilder.requestType;
-        this.contentType = networkRequestBuilder.contentType;
-        this.params = networkRequestBuilder.params;
-        this.headers = networkRequestBuilder.headers;
-        this.bodyJsonObject = networkRequestBuilder.bodyJsonObject;
-        this.onNetworkRequestResponseListener = networkRequestBuilder.onNetworkRequestResponseListener;
+    private NetworkRequest(Context context) {
+        this.context = context;
         this.responseMemoryCache = ResponseMemoryCache.getInstance();
     }
 
-    private void fireRequest() {
-        NetworkRequestAsyncTask connection = new NetworkRequestAsyncTask(context, baseUrl, endpoint, requestType, contentType, params, headers, bodyJsonObject);
-        connection.setDecodedUrlInUTF(isDecodedUrl);
-        connection.setOnNetworkRequestResponseListener(onNetworkRequestResponseListener);
-        connection.execute();
+    public static NetworkRequest getInstance(Context context) {
+        if (networkRequest == null) createInstance(context);
+        return networkRequest;
+    }
+
+    private synchronized static void createInstance(Context context) {
+        if (networkRequest == null) {
+            networkRequest = new NetworkRequest(context);
+        }
+    }
+
+    public NetworkRequest baseUrl(String baseUrl) {
+        this.baseUrl = baseUrl;
+        return networkRequest;
+    }
+
+    public NetworkRequest endpoint(String endpoint) {
+        this.endpoint = endpoint;
+        return networkRequest;
+    }
+
+    public NetworkRequest decodedUrl(boolean decodedUrl) {
+        isDecodedUrl = decodedUrl;
+        return networkRequest;
+    }
+
+    public NetworkRequest requestType(RequestType requestType) {
+        this.requestType = requestType;
+        return networkRequest;
+    }
+
+    public NetworkRequest contentType(ContentType contentType) {
+        this.contentType = contentType;
+        return networkRequest;
+    }
+
+    public NetworkRequest params(Map<String, String> params) {
+        this.params = params;
+        return networkRequest;
+    }
+
+    public NetworkRequest headers(Map<String, String> headers) {
+        this.headers = headers;
+        return networkRequest;
+    }
+
+    public NetworkRequest bodyJsonObject(JSONObject bodyJsonObject) {
+        this.bodyJsonObject = bodyJsonObject;
+        return networkRequest;
+    }
+
+    public NetworkRequest onNetworkRequestResponseListener(OnNetworkRequestResponseListener onNetworkRequestResponseListener) {
+        this.onNetworkRequestResponseListener = onNetworkRequestResponseListener;
+        return networkRequest;
+    }
+
+    public void fireRequest() {
+        networkRequestAsyncTask = new NetworkRequestAsyncTask(context, baseUrl, endpoint, requestType, contentType, params, headers, bodyJsonObject);
+        networkRequestAsyncTask.setDecodedUrlInUTF(isDecodedUrl);
+        networkRequestAsyncTask.setOnNetworkRequestResponseListener(onNetworkRequestResponseListener);
+        networkRequestAsyncTask.execute();
     }
 
     public void clearResponseCache() {
@@ -63,72 +105,9 @@ public class NetworkRequest {
         responseMemoryCache.removeResponse(cacheKey);
     }
 
-    public static class NetworkRequestBuilder {
-
-        private Context context;
-        private String baseUrl;
-        private String endpoint;
-        private boolean isDecodedUrl;
-        private RequestType requestType;
-        private ContentType contentType;
-        private Map<String, String> params;
-        private Map<String, String> headers;
-        private JSONObject bodyJsonObject;
-        private OnNetworkRequestResponseListener onNetworkRequestResponseListener;
-
-        public NetworkRequestBuilder(Context context) {
-            this.context = context;
-        }
-
-        public NetworkRequestBuilder baseUrl(String baseUrl) {
-            this.baseUrl = baseUrl;
-            return this;
-        }
-
-        public NetworkRequestBuilder endpoint(String endpoint) {
-            this.endpoint = endpoint;
-            return this;
-        }
-
-        public NetworkRequestBuilder isDecodedUrl(boolean isDecodedUrl) {
-            this.isDecodedUrl = isDecodedUrl;
-            return this;
-        }
-
-        public NetworkRequestBuilder requestType(RequestType requestType) {
-            this.requestType = requestType;
-            return this;
-        }
-
-        public NetworkRequestBuilder contentType(ContentType contentType) {
-            this.contentType = contentType;
-            return this;
-        }
-
-        public NetworkRequestBuilder params(Map<String, String> params) {
-            this.params = params;
-            return this;
-        }
-
-        public NetworkRequestBuilder headers(Map<String, String> headers) {
-            this.headers = headers;
-            return this;
-        }
-
-        public NetworkRequestBuilder bodyJsonObject(JSONObject bodyJsonObject) {
-            this.bodyJsonObject = bodyJsonObject;
-            return this;
-        }
-
-        public NetworkRequestBuilder onNetworkRequestResponseListener(OnNetworkRequestResponseListener onNetworkRequestResponseListener) {
-            this.onNetworkRequestResponseListener = onNetworkRequestResponseListener;
-            return this;
-        }
-
-        public NetworkRequest buildNetworkRequest() {
-            return NetworkRequest.getInstance(this);
-        }
-
+    public void cancelRequest(boolean mayInterruptIfRunning) {
+        if (networkRequestAsyncTask != null)
+            networkRequestAsyncTask.cancel(mayInterruptIfRunning);
     }
 
 }

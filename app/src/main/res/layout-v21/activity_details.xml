@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/coordinator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/app_tool_bar" />
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/agenda_fragment_container"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/padding_6dp"
+        app:cardCornerRadius="2dp"
+        app:cardPreventCornerOverlap="false"
+        app:contentPaddingLeft="-3dp"
+        app:contentPaddingRight="-3dp"
+        app:contentPaddingTop="-3dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+        <RelativeLayout
+            android:id="@+id/relative_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/padding_6dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/user_name_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="8dp" />
+
+            <ImageView
+                android:id="@+id/user_image_iv"
+                style="@style/text_view_16_regular"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_below="@+id/user_name_tv"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/app_name"
+                android:scaleType="centerCrop"
+                android:transitionName="@string/user_image" />
+
+            <TextView
+                android:id="@+id/name_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/user_image_iv"
+                android:gravity="center"
+                android:padding="8dp" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</android.support.design.widget.CoordinatorLayout>

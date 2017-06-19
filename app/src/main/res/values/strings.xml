@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">SimpleNetworkProject</string>
     <string name="main_screen">Main Screen</string>
+    <string name="details_screen">Details Screen</string>
+    <string name="user_image">userImage</string>
+    <string name="user_name">user_name</string>
+    <string name="name">name</string>
+    <string name="user_profile_image">user_profile_image</string>
 </resources>

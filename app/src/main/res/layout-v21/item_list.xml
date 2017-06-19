@@ -24,7 +24,8 @@
             android:layout_height="200dp"
             android:adjustViewBounds="true"
             android:contentDescription="@string/app_name"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            android:transitionName="@string/user_image" />
 
         <TextView
             android:id="@+id/user_name_tv"
