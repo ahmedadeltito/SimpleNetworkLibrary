@@ -59,7 +59,7 @@ networkRequest = NetworkRequest.getInstance(context)
                 .headers(Map<String, String> headers)
                 // add json body as a body to your POST, PUT, DELETE and PATCH requests
                 .bodyJsonObject(JSONObject bodyJsonObject)
-                // OnNetworkRequestResponseListener is a listener that used to observe the success 					and error response
+                // OnNetworkRequestResponseListener is a listener that used to observe the success and error response
                 .onNetworkRequestResponseListener(OnNetworkRequestResponseListener onNetworkRequestResponseListener)
 ```
 
