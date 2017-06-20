@@ -1,4 +1,4 @@
-# SimpleNetworkLibrary
+# Simple Network Library
 
 ![alt tag](https://s13.postimg.org/6shufrw87/simple_netwokr_library.png)
 
