@@ -3,31 +3,50 @@ package com.ahmedadelsaid.simplenetworkproject.view;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.TextView;
 
+import com.ahmedadelsaid.simplenetworklibrary.imagerequest.RequestImageView;
 import com.ahmedadelsaid.simplenetworkproject.R;
 
 public class DetailsActivity extends AppCompatActivity {
 
-    private String userName, name, userProfileImage;
+    private RequestImageView imageView;
+    private TextView userTextView, userNameTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
 
-        userName = getIntent().getStringExtra(getResources().getString(R.string.user_name));
-        name = getIntent().getStringExtra(getResources().getString(R.string.name));
-        userProfileImage = getIntent().getStringExtra(getResources().getString(R.string.user_profile_image));
+        String userName = getIntent().getStringExtra(getResources().getString(R.string.user_name));
+        String name = getIntent().getStringExtra(getResources().getString(R.string.name));
+        String userProfileImage = getIntent().getStringExtra(getResources().getString(R.string.user_profile_image));
 
         initView();
+
+        imageView.setImageUrl(userProfileImage);
+        userTextView.setText(name);
+        userNameTextView.setText(userName);
     }
 
     private void initView() {
         Toolbar mToolbar = (Toolbar) findViewById(R.id.app_toolbar);
         if (mToolbar != null) {
             setSupportActionBar(mToolbar);
-            assert getSupportActionBar() != null;
-            getSupportActionBar().setTitle(getString(R.string.main_screen));
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setTitle(getString(R.string.details_screen));
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            }
+            mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onBackPressed();
+                }
+            });
         }
+        imageView = (RequestImageView) findViewById(R.id.user_image_iv);
+        userTextView = (TextView) findViewById(R.id.name_tv);
+        userNameTextView = (TextView) findViewById(R.id.user_name_tv);
     }
 }
