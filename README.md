@@ -2,7 +2,7 @@
 
 ![alt tag](https://s13.postimg.org/6shufrw87/simple_netwokr_library.png)
 
-Android Simple Netwrok Library for HTTP and Image requests with cool features implemented with Simple Demo using some Material Design UI Elements.
+Android Simple Network Library for HTTP and Image requests with cool features implemented with Simple Demo using some Material Design UI Elements.
 
 -----------------------------------------------------------------------------------------------------
 
@@ -11,8 +11,9 @@ Android Simple Netwrok Library for HTTP and Image requests with cool features im
 2. Making HTTP Requests with different Content Types like **JSON** and **XML**.
 3. Caching HTTP Request on **Memory**.
 4. Handling Multiple Requests in a **Thread Safe Mechanism**.
-5. Making Image Requests **Synchronize** and **Asynchronous** with helpful observers to hanle most cases.
+5. Making Image Requests **Synchronous** and **Asynchronous** with helpful observers to handle most cases.
 6. Caching Image Bitmaps on **Memory**.
+7. Creating a **Test Case** for **NetworkRequest** class using **JUnit** testing framework.
 
 # Most Common Simple Demo Application Features:
 1. Using some Material Design UI Elements like **CoordinatorLayout**, **CardView**, **AppBarLayout**, **SwipeRefreshLayout**, **RecyclerView** and **Transition**.
@@ -23,7 +24,7 @@ Android Simple Netwrok Library for HTTP and Image requests with cool features im
 
 # User Documentation :
 
-1. For simple integration all you have to do is add the following command in your root build.gradle at the end of repositories:
+1. For simple integration all you have to do is to add the following command in your root build.gradle at the end of repositories:
 ```java
 	allprojects {
 		repositories {
@@ -32,7 +33,7 @@ Android Simple Netwrok Library for HTTP and Image requests with cool features im
 		}
 	}
 ```
-and after this, add the Simple Library Netwrok dependency:
+and after this, add the Simple Library Network dependency:
 ```java
 	dependencies {
 	        compile 'com.github.ahmed-adel-said:SimpleNetworkLibrary:-SNAPSHOT'
@@ -42,7 +43,7 @@ and after this, add the Simple Library Netwrok dependency:
 2. To initialize HTTP request:
 ```java
 networkRequest = NetworkRequest.getInstance(context)
-				// base url
+		// base url
                 .baseUrl(String baseUrl)
                 // endpoint
                 .endpoint(String endpoint)
@@ -54,7 +55,7 @@ networkRequest = NetworkRequest.getInstance(context)
                 .decodedUrl(boolean decodedUrl)
                 // add params to your request
                 .params(Map<String, String> params)
-                // add header to your request
+                // add headers to your request
                 .headers(Map<String, String> headers)
                 // add json body as a body to your POST, PUT, DELETE and PATCH requests
                 .bodyJsonObject(JSONObject bodyJsonObject)
@@ -62,7 +63,7 @@ networkRequest = NetworkRequest.getInstance(context)
                 .onNetworkRequestResponseListener(OnNetworkRequestResponseListener onNetworkRequestResponseListener)
 ```
 
-3. To fire the request aftre initializing it:
+3. To fire the request after initializing it:
 ```java
 networkRequest.fireRequest();
 ```
@@ -70,9 +71,9 @@ networkRequest.fireRequest();
 4. To initialize image HTTP request and load the required image:
 ```java
 userImageView.setImageUrl(
-				// image url
-				String url,
-                // fall back image resouce if the image url is not correct and there is an error occured while downloading the image
+		// image url
+		String url,
+                // fall back image resource if the image url is not correct and there is an error occurred while downloading the image
                 Integer fallbackResource,
                 // loading image resource that is appeared during the download of the image 
                 Integer loadingResource,
