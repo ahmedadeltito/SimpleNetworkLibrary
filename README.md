@@ -60,7 +60,7 @@ networkRequest = NetworkRequest.getInstance(context)
                 // add json body as a body to your POST, PUT, DELETE and PATCH requests
                 .bodyJsonObject(JSONObject bodyJsonObject)
                 // OnNetworkRequestResponseListener is a listener that used to observe the success and error response
-                .onNetworkRequestResponseListener(OnNetworkRequestResponseListener onNetworkRequestResponseListener)
+                .onNetworkRequestResponseListener(OnNetworkRequestResponseListener onNetworkRequestResponseListener);
 ```
 
 3. To fire the request after initializing it:
