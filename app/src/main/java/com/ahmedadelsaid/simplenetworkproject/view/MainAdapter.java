@@ -22,6 +22,8 @@ import static com.ahmedadelsaid.simplenetworkproject.R.drawable.loading;
 
 /**
  * Created by Ahmed Adel on 19/06/2017.
+ *
+ * MainAdapter is the main adapter that handles the design of returned pastebin API
  */
 
 class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {

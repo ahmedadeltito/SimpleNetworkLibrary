@@ -6,6 +6,7 @@ import android.view.View;
 
 /**
  * Created by Ahmed Adel on 19/06/2017.
+ * SpacesItemDecoration is a custom item decoration for main screen recycler view
  */
 
 public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
@@ -21,7 +22,6 @@ public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
         outRect.right = mSpace;
         outRect.bottom = mSpace;
 
-        // Add top margin only for the first item to avoid double space between items
         if (parent.getChildAdapterPosition(view) == 0)
             outRect.top = mSpace;
     }

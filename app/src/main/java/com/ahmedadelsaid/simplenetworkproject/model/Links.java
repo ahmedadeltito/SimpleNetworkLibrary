@@ -2,6 +2,7 @@ package com.ahmedadelsaid.simplenetworkproject.model;
 
 /**
  * Created by Ahmed Adel on 19/06/2017.
+ * Links Model
  */
 
 public class Links {

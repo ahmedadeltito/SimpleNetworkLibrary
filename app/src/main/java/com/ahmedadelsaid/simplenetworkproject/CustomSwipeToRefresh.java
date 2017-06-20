@@ -8,6 +8,8 @@ import android.view.ViewConfiguration;
 
 /**
  * Created by Ahmed Adel on 19/06/2017.
+ * <p>
+ * CustomSwipeToRefresh is a custom swipe to refresh component that handles the intercept touch events.
  */
 
 public class CustomSwipeToRefresh extends SwipeRefreshLayout {

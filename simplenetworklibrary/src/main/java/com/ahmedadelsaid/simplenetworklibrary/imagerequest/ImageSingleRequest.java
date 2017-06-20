@@ -11,7 +11,7 @@ import java.net.URLConnection;
 /**
  * Created by Ahmed Adel on 19/06/2017.
  * <p>
- * ImageSingleRequest is a class that responsible for making single request to get image bitmap
+ * ImageSingleRequest is a class that responsible for making a single request to get image bitmap.
  */
 
 class ImageSingleRequest implements OnImageBitmapListener {

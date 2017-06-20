@@ -10,6 +10,10 @@ import java.util.concurrent.Executors;
 
 /**
  * Created by Ahmed Adel on 19/06/2017.
+ *
+ * RequestImageView is an AppCompatImageView class that makes the requesting process of images more easier by calling
+ * setImageUrl with passing on it the image url and some parameters to load the required image.
+ *
  */
 
 public class RequestImageView extends AppCompatImageView {
@@ -58,7 +62,6 @@ public class RequestImageView extends AppCompatImageView {
         setImage(new ImageSingleRequest(url), fallbackResource, loadingResource, onCompleteImageListener);
     }
 
-    // Set image using OnImageBitmapListener object
     public void setImage(final OnImageBitmapListener image) {
         setImage(image, null, null, null);
     }

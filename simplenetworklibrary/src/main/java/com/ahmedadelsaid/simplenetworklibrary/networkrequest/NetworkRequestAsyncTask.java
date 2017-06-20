@@ -28,7 +28,7 @@ import java.util.Map;
  * Created by Ahmed Adel on 19/06/2017.
  * <p>
  * NetworkRequestAsyncTask is an AsyncTask that handle all the process behind sending, receiving and
- * caching the response
+ * caching the response.
  */
 
 class NetworkRequestAsyncTask extends AsyncTask<Void, Void, Boolean> {
@@ -146,123 +146,128 @@ class NetworkRequestAsyncTask extends AsyncTask<Void, Void, Boolean> {
         HttpURLConnection urlConnection = null;
         URL url = null;
         Uri.Builder builderPath = buildPath(baseUrl, endpoint);
-        if (type == RequestType.GET) {
-            if (params != null) {
-                for (Map.Entry<String, String> entry : params.entrySet()) {
-                    if (decodedUrlInUTF) {
-                        String decode = entry.getValue();
-                        decode = decode.replace(" ", "%20");
-                        builderPath.appendQueryParameter(entry.getKey(), decode);
-                    } else {
-                        builderPath.appendQueryParameter(entry.getKey(), entry.getValue());
-                    }
-                }
-            }
-            url = new URL(getCompletePath(builderPath.build().toString()));
-            urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestMethod(type.name());
-            urlConnection = setHeaders(urlConnection, headers, contentType);
-            urlConnection.connect();
-        } else if (type == RequestType.POST) {
-            url = new URL(getCompletePath(builderPath.build().toString()));
-            urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestMethod(type.name());
-            urlConnection = setHeaders(urlConnection, headers, contentType);
-            urlConnection.setDoInput(true);
-            urlConnection.setDoOutput(true);
-            if (object != null) { // A JSON object will be send it.
-                urlConnection.connect();
-                DataOutputStream dataOutputStream = new DataOutputStream(urlConnection.getOutputStream());
-                dataOutputStream.write(object.toString().getBytes());
-                dataOutputStream.flush();
-                dataOutputStream.close();
-            } else { // if there is no JSON object will create the request with encoded url params
-                Uri.Builder builder = new Uri.Builder();
+        switch (type) {
+            case GET:
                 if (params != null) {
                     for (Map.Entry<String, String> entry : params.entrySet()) {
-                        builder.appendQueryParameter(entry.getKey(), entry.getValue());
+                        if (decodedUrlInUTF) {
+                            String decode = entry.getValue();
+                            decode = decode.replace(" ", "%20");
+                            builderPath.appendQueryParameter(entry.getKey(), decode);
+                        } else {
+                            builderPath.appendQueryParameter(entry.getKey(), entry.getValue());
+                        }
                     }
-                    String query = builder.build().getEncodedQuery();
-                    OutputStream os = urlConnection.getOutputStream();
-                    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, charset));
-                    writer.write(query);
-                    writer.flush();
-                    writer.close();
-                    urlConnection.connect();
                 }
-            }
-        } else if (type == RequestType.PUT) {
-            url = new URL(getCompletePath(builderPath.build().toString()));
-            urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestMethod(type.name());
-            urlConnection = setHeaders(urlConnection, headers, contentType);
-            urlConnection.setDoInput(true);
-            urlConnection.setDoOutput(true);
-            if (object != null) { // A JSON object will be send it.
+                url = new URL(getCompletePath(builderPath.build().toString()));
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod(type.name());
+                urlConnection = setHeaders(urlConnection, headers, contentType);
                 urlConnection.connect();
-                DataOutputStream dataOutputStream = new DataOutputStream(urlConnection.getOutputStream());
-                dataOutputStream.write(object.toString().getBytes());
-                dataOutputStream.flush();
-                dataOutputStream.close();
-            } else {
-                Uri.Builder builder = new Uri.Builder();
-                if (params != null) {
-                    for (Map.Entry<String, String> entry : params.entrySet()) {
-                        builder.appendQueryParameter(entry.getKey(), entry.getValue());
+                break;
+            case POST:
+                url = new URL(getCompletePath(builderPath.build().toString()));
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod(type.name());
+                urlConnection = setHeaders(urlConnection, headers, contentType);
+                urlConnection.setDoInput(true);
+                urlConnection.setDoOutput(true);
+                if (object != null) { // A JSON object will be send it.
+                    urlConnection.connect();
+                    DataOutputStream dataOutputStream = new DataOutputStream(urlConnection.getOutputStream());
+                    dataOutputStream.write(object.toString().getBytes());
+                    dataOutputStream.flush();
+                    dataOutputStream.close();
+                } else { // if there is no JSON object will create the request with encoded url params
+                    Uri.Builder builder = new Uri.Builder();
+                    if (params != null) {
+                        for (Map.Entry<String, String> entry : params.entrySet()) {
+                            builder.appendQueryParameter(entry.getKey(), entry.getValue());
+                        }
+                        String query = builder.build().getEncodedQuery();
+                        OutputStream os = urlConnection.getOutputStream();
+                        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, charset));
+                        writer.write(query);
+                        writer.flush();
+                        writer.close();
+                        urlConnection.connect();
                     }
-                    String query = builder.build().getEncodedQuery();
-                    OutputStream os = urlConnection.getOutputStream();
-                    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, charset));
-                    writer.write(query);
-                    writer.flush();
-                    writer.close();
-                    urlConnection.connect();
                 }
-            }
-        } else if (type == RequestType.PATCH) {
-            url = new URL(getCompletePath(builderPath.build().toString()));
-            urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestMethod(type.name());
-            urlConnection = setHeaders(urlConnection, headers, contentType);
-            urlConnection.setDoInput(true);
-            urlConnection.setDoOutput(true);
-            if (object != null) { // A JSON object will be send it.
-                urlConnection.connect();
-                DataOutputStream dataOutputStream = new DataOutputStream(urlConnection.getOutputStream());
-                dataOutputStream.write(object.toString().getBytes());
-                dataOutputStream.flush();
-                dataOutputStream.close();
-            } else {
-                Uri.Builder builder = new Uri.Builder();
-                if (params != null) {
-                    for (Map.Entry<String, String> entry : params.entrySet()) {
-                        builder.appendQueryParameter(entry.getKey(), entry.getValue());
+                break;
+            case PUT:
+                url = new URL(getCompletePath(builderPath.build().toString()));
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod(type.name());
+                urlConnection = setHeaders(urlConnection, headers, contentType);
+                urlConnection.setDoInput(true);
+                urlConnection.setDoOutput(true);
+                if (object != null) {
+                    urlConnection.connect();
+                    DataOutputStream dataOutputStream = new DataOutputStream(urlConnection.getOutputStream());
+                    dataOutputStream.write(object.toString().getBytes());
+                    dataOutputStream.flush();
+                    dataOutputStream.close();
+                } else {
+                    Uri.Builder builder = new Uri.Builder();
+                    if (params != null) {
+                        for (Map.Entry<String, String> entry : params.entrySet()) {
+                            builder.appendQueryParameter(entry.getKey(), entry.getValue());
+                        }
+                        String query = builder.build().getEncodedQuery();
+                        OutputStream os = urlConnection.getOutputStream();
+                        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, charset));
+                        writer.write(query);
+                        writer.flush();
+                        writer.close();
+                        urlConnection.connect();
                     }
-                    String query = builder.build().getEncodedQuery();
-                    OutputStream os = urlConnection.getOutputStream();
-                    BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, charset));
-                    writer.write(query);
-                    writer.flush();
-                    writer.close();
-                    urlConnection.connect();
                 }
-            }
-        } else if (type == RequestType.DELETE) {
-            url = new URL(getCompletePath(builderPath.build().toString()));
-            urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestMethod(type.name());
-            urlConnection = setHeaders(urlConnection, headers, contentType);
-            urlConnection.setDoInput(true);
-            urlConnection.setDoOutput(true);
-            if (object != null) { // A JSON object will be send it.
-                urlConnection.connect();
-                DataOutputStream dataOutputStream = new DataOutputStream(urlConnection.getOutputStream());
-                dataOutputStream.write(object.toString().getBytes());
-                dataOutputStream.flush();
-                dataOutputStream.close();
-            }
+                break;
+            case PATCH:
+                url = new URL(getCompletePath(builderPath.build().toString()));
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod(type.name());
+                urlConnection = setHeaders(urlConnection, headers, contentType);
+                urlConnection.setDoInput(true);
+                urlConnection.setDoOutput(true);
+                if (object != null) {
+                    urlConnection.connect();
+                    DataOutputStream dataOutputStream = new DataOutputStream(urlConnection.getOutputStream());
+                    dataOutputStream.write(object.toString().getBytes());
+                    dataOutputStream.flush();
+                    dataOutputStream.close();
+                } else {
+                    Uri.Builder builder = new Uri.Builder();
+                    if (params != null) {
+                        for (Map.Entry<String, String> entry : params.entrySet()) {
+                            builder.appendQueryParameter(entry.getKey(), entry.getValue());
+                        }
+                        String query = builder.build().getEncodedQuery();
+                        OutputStream os = urlConnection.getOutputStream();
+                        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, charset));
+                        writer.write(query);
+                        writer.flush();
+                        writer.close();
+                        urlConnection.connect();
+                    }
+                }
+                break;
+            case DELETE:
+                url = new URL(getCompletePath(builderPath.build().toString()));
+                urlConnection = (HttpURLConnection) url.openConnection();
+                urlConnection.setRequestMethod(type.name());
+                urlConnection = setHeaders(urlConnection, headers, contentType);
+                urlConnection.setDoInput(true);
+                urlConnection.setDoOutput(true);
+                if (object != null) {
+                    urlConnection.connect();
+                    DataOutputStream dataOutputStream = new DataOutputStream(urlConnection.getOutputStream());
+                    dataOutputStream.write(object.toString().getBytes());
+                    dataOutputStream.flush();
+                    dataOutputStream.close();
+                }
+                break;
         }
-        assert url != null;
         Log.d(LOG_TAG, url.toString());
         return urlConnection;
     }
@@ -343,11 +348,11 @@ class NetworkRequestAsyncTask extends AsyncTask<Void, Void, Boolean> {
         }
     }
 
-    public void setOnNetworkRequestResponseListener(OnNetworkRequestResponseListener onNetworkRequestResponseListener) {
+    void setOnNetworkRequestResponseListener(OnNetworkRequestResponseListener onNetworkRequestResponseListener) {
         this.onNetworkRequestResponseListener = onNetworkRequestResponseListener;
     }
 
-    public void setDecodedUrlInUTF(boolean decodedUrlInUTF) {
+    void setDecodedUrlInUTF(boolean decodedUrlInUTF) {
         this.decodedUrlInUTF = decodedUrlInUTF;
     }
 }

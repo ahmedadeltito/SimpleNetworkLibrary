@@ -19,6 +19,9 @@ import java.util.ArrayList;
 
 /**
  * Created by Ahmed Adel on 19/06/2017.
+ * <p>
+ * ItemController is the controller/service class that handle the HTTP request to pastebin website and handling
+ * the returned json.
  */
 
 public class ItemController implements OnNetworkRequestResponseListener {
@@ -48,16 +51,18 @@ public class ItemController implements OnNetworkRequestResponseListener {
 
     @Override
     public void onSuccessResponse(String response, ContentType contentType, boolean isCached) {
-        try {
-            JSONArray menuItemJsonArray = new JSONArray(response);
-            Type menuItemListType = new TypeToken<ArrayList<ItemList>>() {
-            }.getType();
-            Gson gson = new Gson();
-            ArrayList<ItemList> itemLists = gson.fromJson(menuItemJsonArray.toString(), menuItemListType);
-            if (onResponseListener != null)
-                onResponseListener.onSuccess(itemLists);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if (contentType == ContentType.JSON) {
+            try {
+                JSONArray menuItemJsonArray = new JSONArray(response);
+                Type menuItemListType = new TypeToken<ArrayList<ItemList>>() {
+                }.getType();
+                Gson gson = new Gson();
+                ArrayList<ItemList> itemLists = gson.fromJson(menuItemJsonArray.toString(), menuItemListType);
+                if (onResponseListener != null)
+                    onResponseListener.onSuccess(itemLists);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 

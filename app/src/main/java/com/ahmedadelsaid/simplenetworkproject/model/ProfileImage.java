@@ -2,6 +2,7 @@ package com.ahmedadelsaid.simplenetworkproject.model;
 
 /**
  * Created by Ahmed Adel on 19/06/2017.
+ * ProfileImage Model
  */
 
 public class ProfileImage {

@@ -6,6 +6,8 @@ import android.net.NetworkInfo;
 
 /**
  * Created by Ahmed Adel on 19/06/2017.
+ * <p>
+ * SimpleNetworkUtils for Simple Network Library.
  */
 
 public class SimpleNetworkUtils {
@@ -32,14 +34,4 @@ public class SimpleNetworkUtils {
         }
         return false;
     }
-
-    public static boolean stringIsEmpty(String string) {
-        if (string != null && !string.equals("null")) {
-            if (!string.trim().equals("")) {
-                return false;
-            }
-        }
-        return true;
-    }
-
 }

@@ -25,6 +25,12 @@ import com.ahmedadelsaid.simplenetworkproject.model.ItemList;
 
 import java.util.ArrayList;
 
+/**
+ * Created by Ahmed Adel on 19/06/2017.
+ * <p>
+ * MainActivity is the main screen that loads the main items from pastebin API.
+ */
+
 public class MainActivity extends AppCompatActivity implements OnResponseListener, OnCompleteImageListener,
         OnMainAdapterClickListener, SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener {
 

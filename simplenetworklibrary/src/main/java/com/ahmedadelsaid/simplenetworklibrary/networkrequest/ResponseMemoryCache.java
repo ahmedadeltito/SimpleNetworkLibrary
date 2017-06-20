@@ -7,7 +7,7 @@ import com.ahmedadelsaid.simplenetworklibrary.SimpleNetworkUtils;
 /**
  * Created by Ahmed Adel on 19/06/2017.
  * <p>
- * ResponseMemoryCache is the class that responsible for caching network library response
+ * ResponseMemoryCache is the class that responsible for caching network library response.
  */
 
 class ResponseMemoryCache {
@@ -19,7 +19,7 @@ class ResponseMemoryCache {
         responseMemoryCache();
     }
 
-    public static ResponseMemoryCache getInstance() {
+    static ResponseMemoryCache getInstance() {
         if (responseMemoryCache == null)
             responseMemoryCache = new ResponseMemoryCache();
         return responseMemoryCache;

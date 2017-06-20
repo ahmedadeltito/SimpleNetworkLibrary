@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * Created by Ahmed Adel on 19/06/2017.
  * <p>
- * NetworkRequest is the public class that the developer can use to make HTTP requests
+ * NetworkRequest is the public class that the developer can use to make HTTP requests.
  */
 
 public class NetworkRequest {
@@ -35,63 +35,64 @@ public class NetworkRequest {
     }
 
     public static NetworkRequest getInstance(Context context) {
-        if (networkRequest == null) createInstance(context);
+        if (networkRequest == null)
+            createInstance(context);
         return networkRequest;
     }
 
     private synchronized static void createInstance(Context context) {
-        if (networkRequest == null) {
+        if (networkRequest == null)
             networkRequest = new NetworkRequest(context);
-        }
     }
 
     public NetworkRequest baseUrl(String baseUrl) {
         this.baseUrl = baseUrl;
-        return networkRequest;
+        return getInstance(context);
     }
 
     public NetworkRequest endpoint(String endpoint) {
         this.endpoint = endpoint;
-        return networkRequest;
+        return getInstance(context);
     }
 
     public NetworkRequest decodedUrl(boolean decodedUrl) {
         isDecodedUrl = decodedUrl;
-        return networkRequest;
+        return getInstance(context);
     }
 
     public NetworkRequest requestType(RequestType requestType) {
         this.requestType = requestType;
-        return networkRequest;
+        return getInstance(context);
     }
 
     public NetworkRequest contentType(ContentType contentType) {
         this.contentType = contentType;
-        return networkRequest;
+        return getInstance(context);
     }
 
     public NetworkRequest params(Map<String, String> params) {
         this.params = params;
-        return networkRequest;
+        return getInstance(context);
     }
 
     public NetworkRequest headers(Map<String, String> headers) {
         this.headers = headers;
-        return networkRequest;
+        return getInstance(context);
     }
 
     public NetworkRequest bodyJsonObject(JSONObject bodyJsonObject) {
         this.bodyJsonObject = bodyJsonObject;
-        return networkRequest;
+        return getInstance(context);
     }
 
     public NetworkRequest onNetworkRequestResponseListener(OnNetworkRequestResponseListener onNetworkRequestResponseListener) {
         this.onNetworkRequestResponseListener = onNetworkRequestResponseListener;
-        return networkRequest;
+        return getInstance(context);
     }
 
     public void fireRequest() {
-        networkRequestAsyncTask = new NetworkRequestAsyncTask(context, baseUrl, endpoint, requestType, contentType, params, headers, bodyJsonObject);
+        networkRequestAsyncTask = new NetworkRequestAsyncTask(context, baseUrl, endpoint, requestType, contentType,
+                params, headers, bodyJsonObject);
         networkRequestAsyncTask.setDecodedUrlInUTF(isDecodedUrl);
         networkRequestAsyncTask.setOnNetworkRequestResponseListener(onNetworkRequestResponseListener);
         networkRequestAsyncTask.execute();

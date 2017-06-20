@@ -9,6 +9,12 @@ import android.widget.TextView;
 import com.ahmedadelsaid.simplenetworklibrary.imagerequest.RequestImageView;
 import com.ahmedadelsaid.simplenetworkproject.R;
 
+/**
+ * Created by Ahmed Adel on 19/06/2017.
+ * <p>
+ * DetailsActivity is the details screen that opens when any item in the MainActivity is clicked.
+ */
+
 public class DetailsActivity extends AppCompatActivity {
 
     private RequestImageView imageView;

@@ -12,12 +12,16 @@ import android.os.Message;
  */
 
 class ImageTask implements Runnable {
+
     private static final int BITMAP_READY = 0;
 
+    private Context context;
+
     private boolean cancelled = false;
+
     private OnImageCompleteHandler onImageCompleteHandler;
     private OnImageBitmapListener onImageBitmapListener;
-    private Context context;
+
 
     ImageTask(Context context, OnImageBitmapListener onImageBitmapListener) {
         this.onImageBitmapListener = onImageBitmapListener;

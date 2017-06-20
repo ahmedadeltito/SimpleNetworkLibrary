@@ -4,6 +4,7 @@ import java.util.List;
 
 /**
  * Created by Ahmed Adel on 19/06/2017.
+ * ItemList Model
  */
 
 public class ItemList {
