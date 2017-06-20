@@ -2,7 +2,7 @@
 
 ![alt tag](https://s13.postimg.org/6shufrw87/simple_netwokr_library.png)
 
-Android Simple Network Library for HTTP and Image requests with cool features implemented with Simple Demo using some Material Design UI Elements.
+Android Simple Network Library for HTTP and Image Requests with cool features implemented with Simple Demo using some Material Design UI Elements.
 
 -----------------------------------------------------------------------------------------------------
 
