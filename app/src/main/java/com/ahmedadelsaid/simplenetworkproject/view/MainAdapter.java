@@ -109,7 +109,7 @@ class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private void setAnimation(View viewToAnimate, int position) {
         if (position > lastPosition) {
-            Animation animation = AnimationUtils.loadAnimation(context, android.R.anim.fade_in);
+            Animation animation = AnimationUtils.loadAnimation(context, R.anim.up_from_bottom);
             viewToAnimate.startAnimation(animation);
             lastPosition = position;
         }
