@@ -19,7 +19,6 @@
 
         <com.ahmedadelsaid.simplenetworklibrary.imagerequest.RequestImageView
             android:id="@+id/user_image_iv"
-            style="@style/text_view_16_regular"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:adjustViewBounds="true"
@@ -28,6 +27,7 @@
 
         <TextView
             android:id="@+id/user_name_tv"
+            style="@style/text_view_16_regular"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
